@@ -20,40 +20,14 @@
             </script>
             <nav id="main-menu">
                 <ul>
-                    <li>
-                        <a href="" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/dashboard.svg" /></span><span class="title">Kokpit</span></a>
+                    <li <?php if(System::getView() == "Administration") echo "class=active" ?>>
+                        <a href="http://localhost/NeonCMS/Administration/" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/dashboard.svg" /></span><span class="title">Kokpit</span></a>
                     </li>
-                    <li>
-                        <a href="" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/pages.svg" /></span><span class="title">Strony</span></a>
+                    <li <?php if(System::getView() == "Pages") echo "class=active" ?>>
+                        <a href="http://localhost/NeonCMS/Pages/" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/pages.svg" /></span><span class="title">Strony</span></a>
                     </li>
-                    <li>
-                        <a href="" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/articles.svg" /></span><span class="title">Blog</span></a>
-                    </li>
-                    <li class="active">
-                        <a href="" class="active-link menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/components.svg" /></span><span class="title">Komponenty</span></a>
-                        <div class="hide-area"></div>
-                        <ul>
-                            <li><a href="">Shop</a></li>
-                            <li><a href="">Helpdesc</a></li>
-                            <li><a href="">Social Network</a></li>
-                            <li class="active"><a class="active-link" href="">Helpdesc</a>
-                                <div class="hide-area"></div>
-                                <ul>
-                                    <li class="active"><a class="active-link" href="">Facebook</li>
-                                    <li><a href="">Twitter</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="">Counter</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/modules.svg" /></span><span class="title">Moduły</span></a>
-                    </li>
-                    <li>
-                        <a href="" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/templates.svg" /></span><span class="title">Szablony</span></a>
-                    </li>
-                    <li>
-                        <a href="" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/settings.svg" /></span><span class="title">Ustawienia</span></a>
+                    <li <?php if(System::getView() == "Settings") echo "class=active" ?>>
+                        <a href="http://localhost/NeonCMS/Settings/" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/settings.svg" /></span><span class="title">Ustawienia</span></a>
                     </li>
                 </ul>
             </nav>

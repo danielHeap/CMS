@@ -14,12 +14,19 @@
             "controllerSRC": "Controllers/LoginController.php"
         },
         "Pages": {
-            "controller": "PagesController",
-            "controllerSRC": "Controllers/PagesController.php"
+            "controller": "AdministrationController",
+            "controllerSRC": "Controllers/AdministrationController.php",
+            "alternativeView": "Administration"
         },
         "PageContent": {
             "controller": "PageContentController",
-            "controllerSRC": "Controllers/PageContentController.php"
+            "controllerSRC": "Controllers/PageContentController.php",
+            "alternativeView": "Administration"
+        },
+        "Settings": {
+            "controller": "AdministrationController",
+            "controllerSRC": "Controllers/AdministrationController.php",
+            "alternativeView": "Administration"
         },
         "Error404": {
             "controller": "MainController",
