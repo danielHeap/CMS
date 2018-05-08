@@ -21,13 +21,13 @@
             <nav id="main-menu">
                 <ul>
                     <li <?php if(System::getView() == "Administration") echo "class=active" ?>>
-                        <a href="http://localhost/NeonCMS/Administration/" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/dashboard.svg" /></span><span class="title">Kokpit</span></a>
+                        <a href="<?php echo System::getActualURL(); ?>/Administration/" class="menu-link"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/dashboard.svg" /></span><span class="title">Kokpit</span></a>
                     </li>
                     <li <?php if(System::getView() == "Pages") echo "class=active" ?>>
-                        <a href="http://localhost/NeonCMS/Pages/" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/pages.svg" /></span><span class="title">Strony</span></a>
+                        <a href="<?php echo System::getActualURL(); ?>/Pages/" class="menu-link"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/pages.svg" /></span><span class="title">Strony</span></a>
                     </li>
                     <li <?php if(System::getView() == "Settings") echo "class=active" ?>>
-                        <a href="http://localhost/NeonCMS/Settings/" class="menu-link"><span class="icon"><img src="http://localhost/NeonCMS/Resources/images/settings.svg" /></span><span class="title">Ustawienia</span></a>
+                        <a href="<?php echo System::getActualURL(); ?>/Settings/" class="menu-link"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/settings.svg" /></span><span class="title">Ustawienia</span></a>
                     </li>
                 </ul>
             </nav>

@@ -3,6 +3,6 @@
         'host' => 'localhost',
         'database' => 'testowastrona',
         'username' => 'root',
-        'password' => ''
+        'password' => 'root'
     );
 ?>

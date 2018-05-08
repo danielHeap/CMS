@@ -11,7 +11,8 @@
         },
         "Login": {
             "controller": "LoginController",
-            "controllerSRC": "Controllers/LoginController.php"
+            "controllerSRC": "Controllers/LoginController.php",
+            "alternativeView": "Administration"
         },
         "Pages": {
             "controller": "AdministrationController",

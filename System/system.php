@@ -86,6 +86,7 @@ class System
         require ( self::$templateView["body_end"] );
         require ( self::$templateView["footer"] );
         $controller->End();
+
     }
 
     private function setTemplateView( $_view, $alternativeView = null )
@@ -174,6 +175,7 @@ class System
         $view = $getArrayVariables['view'];
         return $view;
     }
+    public static function getActualURL() { return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']); }
 
 }
 
