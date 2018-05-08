@@ -1,0 +1,1 @@
+<h1><?php echo $controller->getPage()->getTitle(); ?></h1>

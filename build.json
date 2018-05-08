@@ -1,0 +1,37 @@
+{
+    "views":
+    {
+        "Page": {
+            "controller": "PageController",
+            "controllerSRC": "Controllers/PageController.php"
+        },
+        "Administration": {
+            "controller": "AdministrationController",
+            "controllerSRC": "Controllers/AdministrationController.php"
+        },
+        "Login": {
+            "controller": "LoginController",
+            "controllerSRC": "Controllers/LoginController.php"
+        },
+        "Pages": {
+            "controller": "PagesController",
+            "controllerSRC": "Controllers/PagesController.php"
+        },
+        "PageContent": {
+            "controller": "PageContentController",
+            "controllerSRC": "Controllers/PageContentController.php"
+        },
+        "Error404": {
+            "controller": "MainController",
+            "controllerSRC": "Controllers/MainController.php"
+        }
+    },
+    "start":
+    {
+        "view": "Page"
+    },
+    "error":
+    {
+        "view": "Error404"
+    }
+}
