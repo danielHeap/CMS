@@ -1,10 +1,10 @@
 <?php 
 
-
 class Page extends Model
 {
     public $pageID;
     public $parentID;
+    public $name;
     public $title;
     public $description;
 
@@ -49,6 +49,13 @@ class Page extends Model
         );
         return $keysArray;
     }
+
+    public function getName(){ return $this->name; }
+	public function setName($_name)
+	{
+		$this->name = $_name;
+		return $this;
+	}
 }
 
 ?>

@@ -1,1 +1,1 @@
-<h1><?php echo $controller->getPage()->getTitle(); ?></h1>
+<h1><?php echo $this->getPage()->getTitle(); ?></h1>

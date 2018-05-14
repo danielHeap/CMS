@@ -41,8 +41,9 @@ class AdministrationController extends Controller
     public function addNewPage( $_params )
     {
         $page = new Page();
-        $page->setParentID( $_params["parentID"] );
+        $page->setParentID( "0" ); // $_params["parentID"] );
         $page->setTitle( $_params["title"] );
+        $page->setName( $_params["name"] );
         $page->setDescription( $_params["description"] );
         if(DatabaseController::pushData( "pages", $page))
         {

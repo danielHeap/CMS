@@ -14,7 +14,7 @@ class DatabaseController extends DatabaseConnetion
         foreach ($_dataModels as $model) {
             $queryPushData = "";
             $queryPushData .= "
-            INSERT INTO " . $_tableName ." (";
+            INSERT INTO " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName ." (";
             $index = 1;
             foreach ($model->getVariablesName() as $varName) {
                 $queryPushData .= "" . $varName . "";
@@ -51,7 +51,7 @@ class DatabaseController extends DatabaseConnetion
         } else {
             $syntax .= "*";
         }
-        $syntax .= " FROM " . $_tableName;
+        $syntax .= " FROM " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName;
         if($_conditions) {
             $syntax .= " WHERE ";
             $index = 1; 
@@ -110,7 +110,7 @@ class DatabaseController extends DatabaseConnetion
         $modelVariables = get_class_vars($_model);
         $modelKeys = $_model::setDatabaseKeys();
         $queryCreateTable .= "
-        CREATE TABLE IF NOT EXISTS " . $_tableName ." (";
+        CREATE TABLE IF NOT EXISTS " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName ." (";
         $index = 1;
         foreach ($modelVariables as $varName => $var) {
             $queryCreateTable .= $varName; 
@@ -137,7 +137,7 @@ class DatabaseController extends DatabaseConnetion
 
     public static function dropTable( $_tableName )
     {
-        $queryDropTable .= "DROP TABLE " . $_tableName .";";
+        $queryDropTable .= "DROP TABLE " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName .";";
         if (self::$databaseConnection->query($queryDropTable) === TRUE) {
             return true;
         } else {

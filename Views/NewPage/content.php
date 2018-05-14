@@ -13,11 +13,11 @@ $newForm->addClass( "first-class", array(
 $newForm->addObject( "title", "first-class", array(
     "placeholder"   => "Tytuł"
 ));
+$newForm->addObject( "name", "first-class", array(
+    "placeholder"   => "Nazwa"
+));
 $newForm->addObject( "description", "first-class", array(
     "placeholder"   => "Opis"
-));
-$newForm->addObject( "parentID", "first-class", array(
-    "placeholder"   => "Indeks rodzica"
 ));
 $newForm->addObject( "actionController", "first-class", array(
     "type"          => "hidden",

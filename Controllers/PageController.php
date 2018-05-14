@@ -6,16 +6,20 @@ class PageController extends Controller
 {
     private $page;
 
-    public function RequestGET( $_requestGETArray )
+    public function viewPage( $_params )
     {
-        $page = new Page();
-        $page->setTitle( $_requestGETArray['name'] );
-        $this->setPage( $page );
-
-        //System::gotoErrorView();
+        $page = DatabaseController::pullData( 
+            "pages",
+            "Page",
+            array( "pageID", "title", "name", "description" ),
+            array(
+                "name" => $_params['namePage']
+            )
+        );
+        if(!$page) System::gotoErrorView();
+        $this->setPage($page);
+        System::view( "Page" ); 
     }
-
-
 
     public function getPage() { return $this->page; }
     public function setPage( $_page ) { $this->page = $_page; }

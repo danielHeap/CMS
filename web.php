@@ -19,7 +19,7 @@
     Identifier::route("Administration/Settings", "AdministrationController", "viewSettingsList");
 
     Identifier::route("Page", "PageController");
-    Identifier::route("Page/{idPage}", "PageController", "viewPage");
+    Identifier::route("Page/{namePage}", "PageController", "viewPage");
 
     Identifier::route("Articles/{idCategory}", "ArticlesController", "viewArticlesList");
     Identifier::route("Articles/{idCategory}/{idArticle}", "ArticlesController", "viewArticle");

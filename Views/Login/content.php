@@ -1,6 +1,6 @@
 <?php
 
-    if($this->getErrorLogin() == true) echo '<span class="error">Podany użytkownik nie istnieje lub hasło, które wpisałeś jest błedne.';
+    if($this->getErrorLogin() == true) echo '<span class="info info-error">Podany użytkownik nie istnieje lub hasło, które wpisałeś jest błedne.</span>';
     
     $newForm = new FormCreator("loginForm", array(
         'title'         => "Formularz logowania",

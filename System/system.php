@@ -22,8 +22,7 @@ class System
 
     public static function run()
     {        
-        require ("System/DatabaseConfig.php");
-        DatabaseController::setDatabaseConfig($databaseConfig);
+        DatabaseController::setDatabaseConfig();
         if(!DatabaseController::connectToDatabase()){
             echo "Błąd połączenia z bazą danych";
         }

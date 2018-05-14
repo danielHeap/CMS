@@ -21,3 +21,8 @@ RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$
 RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5 [L]
 RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5&param6=$6 [L]
 RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5&param6=$6 [L]
+
+<files .dbaccess>
+order allow,deny
+deny from all
+</files>

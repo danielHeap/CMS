@@ -3,7 +3,7 @@
 class DatabaseConnetion
 {
     public static $databaseConnection;
-    private static $databaseConfig;
+    public static $databaseConfig;
 
     public function __destruct()
     {
@@ -12,8 +12,7 @@ class DatabaseConnetion
 
     public static function connectToDatabase()
     {
-
-        self::$databaseConnection = new \mysqli(self::$databaseConfig['host'], self::$databaseConfig['username'], self::$databaseConfig['password'], self::$databaseConfig['database']);
+        self::$databaseConnection = new \mysqli(self::$databaseConfig['MYSQL']['DB_HOST'], self::$databaseConfig['MYSQL']['DB_USERNAME'], self::$databaseConfig['MYSQL']['DB_PASSWORD'], self::$databaseConfig['MYSQL']['DB_DATABASE']);
         if (self::$databaseConnection->connect_error) {
             return false;
         } else if (!self::$databaseConnection->set_charset("utf8")) {
@@ -21,29 +20,9 @@ class DatabaseConnetion
         } else return true;
     }
 
-    public static function setDatabaseConfig( $_databaseConfig )
+    public static function setDatabaseConfig()
     {
-        self::$databaseConfig = $_databaseConfig;
-    }
-
-    public static function getDatabaseConfigFile()
-    {
-
-    }
-
-    public static function createDatabaseConfigFile( $_databaseConfig )
-    {
-        $myfile = fopen("../Classes/Database/DatabaseConfig.php", "w") or die("Unable to open file!");
-$txt = "<?php
-    protected $" . "databaseConfig = array(
-        'host' => '" . $_databaseConfig['host'] . "',
-        'database' => '" . $_databaseConfig['database'] . "',
-        'username' => '" . $_databaseConfig['username'] . "',
-        'password' => '" . $_databaseConfig['password'] . "'
-    );
-?>";
-        fwrite($myfile, $txt);
-        fclose($myfile);
+        self::$databaseConfig = parse_ini_file(".dbaccess", true);
     }
 
     public static function disconectDatabase()
