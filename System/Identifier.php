@@ -5,6 +5,8 @@ class Identifier
     public static $route = [];
     public static $redirect = [];
     public static $error;
+
+    public static $tmp = [];
     
     public static function set( $_type, $_link, $_controller, $_method )
     {
@@ -48,10 +50,12 @@ class Identifier
                 return $array;
         }
 
-        foreach( self::$route as $key => $array )
+        foreach( $_node as $key => $array )
         {
-            if($key[0] == "{" && $key[strlen($key)-1] == "}" ) 
+            if($key[0] == "{" && $key[strlen($key)-1] == "}" ) {
+                self::$tmp[substr($key, 1, -1)] = $_query;
                 return $array;
+            }
         }
 
         return false;
@@ -64,6 +68,7 @@ class Identifier
 
     public static function checkRedirect( $_getVariables )
     {
+        $getVarsCount = count($_getVariables);
         foreach(self::$redirect as $key => $val)
         {
             if(array_key_exists(
@@ -89,6 +94,7 @@ class Identifier
         {
             $tempArray = self::findArray( $tempArray, $_getVariables["param" . $i] );
         }
+        $tempArray["GET_PARAMS"] = self::$tmp;
         return $tempArray;
     }
 

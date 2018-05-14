@@ -1,8 +1,11 @@
 <?php
+
+    if($this->getErrorLogin() == true) echo '<span class="error">Podany użytkownik nie istnieje lub hasło, które wpisałeś jest błedne.';
     
     $newForm = new FormCreator("loginForm", array(
         'title'         => "Formularz logowania",
         "method"        => "post",
+        "action"        => System::getActualURL() . "/Administration/Login"
     ));
 
     $newForm->addClass( "first-class", array(

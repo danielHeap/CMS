@@ -11,7 +11,6 @@ require ("System/Identifier.php");
 
 class System 
 {
-    private static $buildConfigArray;
     private static $templateView;
 
     public static function debug( $_string )
@@ -19,19 +18,6 @@ class System
         echo "<pre>";
         var_dump($_string);
         echo "</pre>";
-    }
-
-    private function loadAndDecodeBuild( $_buildPath )
-    {
-        $buildFile = file_get_contents( $_buildPath );
-        $buildFileDecoded = json_decode ( $buildFile , true);
-        return $buildFileDecoded;
-    }
-
-    public static function loadBuildJSON( $_buildPath )
-    {
-        $buildJSON = self::loadAndDecodeBuild( $_buildPath );
-        self::setBuildConfigArray($buildJSON);
     }
 
     public static function run()
@@ -49,7 +35,11 @@ class System
 
         $viewController    = Identifier::getGETController($getArrayVariables);
 
-        if($viewController == null) self::gotoErrorView();
+        if($viewController["GET"]["controller"] == null) self::gotoErrorView();
+
+        //echo "<div style='display: none;'>";
+       ///System::debug($viewController);
+        //echo "</div>";
 
         require ( "Controllers/" . $viewController["GET"]["controller"] . ".php");
 
@@ -70,7 +60,7 @@ class System
             }
         }
         if(method_exists($controller, $method = $viewController["GET"]["method"])) {
-            $controller->{$method}($getArrayVariables);
+            $controller->{$method}($viewController["GET_PARAMS"]);
         }
 
         $controller->End();
@@ -158,7 +148,6 @@ class System
             $_SESSION[$sessionKey] = $sessionValue;
         }
     }
-
     /**
      *  GET methods
      */

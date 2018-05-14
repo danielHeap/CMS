@@ -5,10 +5,11 @@ require ("Classes/Article.php");
 class AdministrationController extends Controller
 {
     public $websiteName = "Strona testowa";
+    public $errorLogin = false;
 
     public function Start()
     {
-        if(!isset($_SESSION["logged"]) && System::getView() != "Administration/Login")
+        if(!isset($_SESSION["logged"]) && System::getView() != "Administration/Login" && System::getView() != "Administration/Login/Error")
         {
             System::gotoView("Administration/Login");
         }
@@ -21,14 +22,32 @@ class AdministrationController extends Controller
         System::view( "Administration" ); 
     }
 
-    public function loginUserForm( )
+    public function loginUserForm( $_params )
     {
+        if(isset($_params['error'])) $this->errorLogin = true;
         System::view( "Login", "Administration" ); 
     }
 
     public function viewPagesList( )
     {
         System::view( "Pages", "Administration" ); 
+    }
+
+    public function viewNewPageForm( $_params )
+    {
+        System::view( "NewPage", "Administration" ); 
+    }
+
+    public function addNewPage( $_params )
+    {
+        $page = new Page();
+        $page->setParentID( $_params["parentID"] );
+        $page->setTitle( $_params["title"] );
+        $page->setDescription( $_params["description"] );
+        if(DatabaseController::pushData( "pages", $page))
+        {
+            System::gotoView("Administration/Pages");
+        }
     }
 
     public function viewSettingsList( )
@@ -45,7 +64,7 @@ class AdministrationController extends Controller
             ));
             System::gotoView("Administration");
         } else {
-            echo "Bledne dane";
+            System::gotoView("Administration/Login/Error");
         }
     }
 
@@ -61,6 +80,7 @@ class AdministrationController extends Controller
 		$this->websiteName = $_websiteName;
 		return $this;
 	}
-}
+
+    public function getErrorLogin(){ return $this->errorLogin; }}
 
 ?>
