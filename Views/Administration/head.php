@@ -6,3 +6,4 @@
             <link rel="stylesheet" type="text/css" href="<?php echo System::getActualURL(); ?>/Resources/general.css">
         </head>
         <body>
+  

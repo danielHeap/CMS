@@ -37,7 +37,7 @@ class FormCreator {
             'name' => str_replace(" ", "-", $formName),
 			'title' => ($formConfig['title'] ? $formConfig['title'] : $formName),
 			'method' => ($formConfig['method'] ? $formConfig['method'] : 'post'),
-			'action' => ($formConfig['action'] ? $formConfig['action'] : '#'),
+			'action' => ($formConfig['action'] ? $formConfig['action'] : ''),
             'enctype' => ($formConfig['enctype'] ? $formConfig['enctype'] : ''),
 			'specialKey' => ($formConfig['specialKey'] ? $formConfig['specialKey'] : $this->generateKey())
         );

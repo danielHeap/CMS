@@ -1,7 +1,6 @@
 <?php
 
-require ("System/Controller.php");
-require ("Classes/Page.php");
+require_once ("Classes/Page.php");
 
 class PageController extends Controller
 {

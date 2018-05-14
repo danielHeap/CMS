@@ -2,36 +2,36 @@
 
 class DatabaseConnetion
 {
-    public $databaseConnection;
-    private $databaseConfig;
+    public static $databaseConnection;
+    private static $databaseConfig;
 
     public function __destruct()
     {
-        $this->disconectDatabase();
+        self::disconectDatabase();
     }
 
-    public function connectToDatabase()
+    public static function connectToDatabase()
     {
 
-        $this->databaseConnection = new \mysqli($this->databaseConfig['host'], $this->databaseConfig['username'], $this->databaseConfig['password'], $this->databaseConfig['database']);
-        if ($this->databaseConnection->connect_error) {
+        self::$databaseConnection = new \mysqli(self::$databaseConfig['host'], self::$databaseConfig['username'], self::$databaseConfig['password'], self::$databaseConfig['database']);
+        if (self::$databaseConnection->connect_error) {
             return false;
-        } else if (!$this->databaseConnection->set_charset("utf8")) {
+        } else if (!self::$databaseConnection->set_charset("utf8")) {
             return false;
         } else return true;
     }
 
-    public function setDatabaseConfig( $_databaseConfig )
+    public static function setDatabaseConfig( $_databaseConfig )
     {
-        $this->databaseConfig = $_databaseConfig;
+        self::$databaseConfig = $_databaseConfig;
     }
 
-    public function getDatabaseConfigFile()
+    public static function getDatabaseConfigFile()
     {
 
     }
 
-    public function createDatabaseConfigFile( $_databaseConfig )
+    public static function createDatabaseConfigFile( $_databaseConfig )
     {
         $myfile = fopen("../Classes/Database/DatabaseConfig.php", "w") or die("Unable to open file!");
 $txt = "<?php
@@ -46,9 +46,9 @@ $txt = "<?php
         fclose($myfile);
     }
 
-    public function disconectDatabase()
+    public static function disconectDatabase()
     {
-        $this->databaseConnection->close();
+        self::$databaseConnection->close();
     }
 }
 

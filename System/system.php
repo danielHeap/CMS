@@ -4,7 +4,10 @@ session_start();
 ob_start();
 
 require ("System/DatabaseController.php");
+require ("System/Model.php");
+require ("System/Controller.php");
 require ("System/FormCreator.php");
+require ("System/Identifier.php");
 
 class System 
 {
@@ -14,7 +17,7 @@ class System
     public static function debug( $_string )
     {
         echo "<pre>";
-        print_r($_string);
+        var_dump($_string);
         echo "</pre>";
     }
 
@@ -31,65 +34,50 @@ class System
         self::setBuildConfigArray($buildJSON);
     }
 
-    private function createDatabaseConnection()
-    {
-        $databaseConnection = new DatabaseConnetion();
+    public static function run()
+    {        
         require ("System/DatabaseConfig.php");
-        $databaseConnection->setDatabaseConfig($databaseConfig);
-        if(!$databaseConnection->connectToDatabase()){
+        DatabaseController::setDatabaseConfig($databaseConfig);
+        if(!DatabaseController::connectToDatabase()){
             echo "Błąd połączenia z bazą danych";
         }
-        return $databaseConnection;
-    }
+        require ("database.php");
+        require ("web.php");
 
-    public static function run()
-    {
-        $databaseConnection = self::createDatabaseConnection();
-        
         $getArrayVariables = self::getGetArrayVariables();
-        $view = $getArrayVariables['view'];
+        $getVariablesCount = count($getArrayVariables);
 
-        if(empty($view))
-        {
-            $view = self::$buildConfigArray["start"]["view"];
-        } 
-
-        $viewController     = self::$buildConfigArray["views"][$view]["controller"];
-        $viewControllerSRC  = self::$buildConfigArray["views"][$view]["controllerSRC"];
-        $alternativeView         = self::$buildConfigArray["views"][$view]["alternativeView"];
+        $viewController    = Identifier::getGETController($getArrayVariables);
 
         if($viewController == null) self::gotoErrorView();
 
-        require ( $viewControllerSRC );
+        require ( "Controllers/" . $viewController["GET"]["controller"] . ".php");
 
-        $controller = new $viewController();
-        $controller->Load();
+        $controller = new $viewController["GET"]["controller"]();
+        $controller->Start();
+
+        //echo "<pre>";
+        //echo $viewController["GET"]["controller"];
+        //echo "<br>";
+        //echo $viewController["GET"]["method"];
+        //echo "<br>";*/
 
         if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-            $postArrayVariables     = self::getPostArrayVariables();
-            $actionControllerName   = $postArrayVariables['actionController'];
-            $actionMethodName       = $postArrayVariables['actionMethod'];
-            $actionController       = new $actionControllerName();
-            unset($postArrayVariables['actionController']);
-            unset($postArrayVariables['actionMethod']);
-            $actionController->{$actionMethodName}($postArrayVariables);
+            if(method_exists($controller, $method = $viewController["POST"]["method"])) {
+                $postArrayVariables     = self::getPostArrayVariables();
+                $controller->{$method}($postArrayVariables);
+                //echo $viewController["POST"]["method"];
+            }
         }
-        $controller->RequestGET( $getArrayVariables );
+        if(method_exists($controller, $method = $viewController["GET"]["method"])) {
+            $controller->{$method}($getArrayVariables);
+        }
 
-        $controller->Start();
-        self::setTemplateView( $view, $alternativeView ); 
-        require ( self::$templateView["head"] );
-        require ( self::$templateView["body_start"] );
-        require ( self::$templateView["content_start"] );
-        require ( self::$templateView["content"] );
-        require ( self::$templateView["content_end"] );
-        require ( self::$templateView["body_end"] );
-        require ( self::$templateView["footer"] );
         $controller->End();
 
     }
 
-    private function setTemplateView( $_view, $alternativeView = null )
+    public function view( $_view, $alternativeView = null )
     {
         self::$templateView = array(
             "head" => (
@@ -142,23 +130,28 @@ class System
                 (file_exists("Views/" . $_view . "/footer.php") ? ("Views/" . $_view . "/footer.php") : (file_exists("Views/" . $alternativeView . "/footer.php") ?  ("Views/" . $alternativeView . "/footer.php") : ("Templates/footer.php")))
             )
         );
-        //self::debug(self::$templateView);
+        require ( self::$templateView["head"] );
+        require ( self::$templateView["body_start"] );
+        require ( self::$templateView["content_start"] );
+        require ( self::$templateView["content"] );
+        require ( self::$templateView["content_end"] );
+        require ( self::$templateView["body_end"] );
+        require ( self::$templateView["footer"] );
     }
 
     public static function gotoView( $_view, $_params = null )
     {
-        header("Location: ../" . $_view . "/" . (($_params) ? "&" . $_params : "" )); 
+        header("Location: " . self::getActualURL() . "/" . $_view . "/" ); 
     }
 
     public static function gotoErrorView()
     {
-        header("Location: ../" . self::$buildConfigArray["error"]["view"] . "/" ); 
+        header("Location: " . self::getActualURL() . "/" . Identifier::getError() . "/" ); 
     }
 
     /**
-     *  GET and SET methods
+     *  SET methods
      */
-
     public static function setBuildConfigArray( $_val ) { self::$buildConfigArray = $_val; }
     public static function setSessions( $_sessions ) {
         foreach ($_sessions as $sessionKey => $sessionValue) {
@@ -166,17 +159,36 @@ class System
         }
     }
 
+    /**
+     *  GET methods
+     */
     public static function getBuildConfigArray() { return self::$buildConfigArray; }
     public static function getGetArrayVariables() { return $_GET; }
     public static function getPostArrayVariables() { return $_POST; }
     public static function getSession( $_session ) { return $_SESSION[$_session]; }
+    public static function getActualURL() { return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']); }
     public static function getView() { 
         $getArrayVariables = self::getGetArrayVariables();
-        $view = $getArrayVariables['view'];
+        $view = "";
+        if($getArrayVariables['param1']) $view .= $getArrayVariables['param1'];
+        if($getArrayVariables['param2']) $view .= "/".$getArrayVariables['param2'];
+        if($getArrayVariables['param3']) $view .= "/".$getArrayVariables['param3'];
+        if($getArrayVariables['param4']) $view .= "/".$getArrayVariables['param4'];
+        if($getArrayVariables['param5']) $view .= "/".$getArrayVariables['param5'];
         return $view;
     }
-    public static function getActualURL() { return "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']); }
-
+    public static function getVariableName( $_var ) {
+        foreach($GLOBALS as $var_name => $value) {
+            if ($value === $_var) {
+                return $var_name;
+            }
+        }
+        return false;
+    }
+    public static function getRealtimeDate( $_format )
+    {
+        return date( $_format );
+    }
 }
 
 ?>

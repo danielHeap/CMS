@@ -1,7 +1,23 @@
 Options +FollowSymLinks
 RewriteEngine On
- 
-RewriteCond %{REQUEST_URI} !^/Resources
+
+RewriteRule ^(Resources)($|/) - [L]
+
+RewriteCond %{REQUEST_URI} !^Resources/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule (.*)/(.*)?$ index.php?view=$1&$2 [L,QSA]
+
+RewriteRule ^([^/]+)$ index.php?param1=$1 [L]
+RewriteRule ^([^/]+)/$ index.php?param1=$1 [L]
+RewriteRule ^([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2 [L]
+RewriteRule ^([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2&param3=$3 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2&param3=$3&param4=$4 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3&param4=$4 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2&param3=$3&param4=$4 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3&param4=$4 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5&param6=$6 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ index.php?param1=$1&param2=$2&param3=$3&param4=$4&param5=$5&param6=$6 [L]

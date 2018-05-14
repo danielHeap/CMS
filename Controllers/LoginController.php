@@ -1,7 +1,5 @@
 <?php
 
-require ("System/Controller.php");
-
 class LoginController extends Controller
 {
 
