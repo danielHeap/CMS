@@ -19,14 +19,6 @@ $newForm->addObject( "name", "first-class", array(
 $newForm->addObject( "description", "first-class", array(
     "placeholder"   => "Opis"
 ));
-$newForm->addObject( "actionController", "first-class", array(
-    "type"          => "hidden",
-    "value"         => "PagesController"
-));
-$newForm->addObject( "actionMethod", "first-class", array(
-    "type"          => "hidden",
-    "value"         => "createNewPage"
-));
 $newForm->addButton( "submitButton", "first-class", array(
     "value" => "Utwórz"
 ));

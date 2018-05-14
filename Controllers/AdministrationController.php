@@ -33,6 +33,43 @@ class AdministrationController extends Controller
         System::view( "Pages", "Administration" ); 
     }
 
+    public $editPage;
+
+    public function viewPageContent( $_params )
+    {
+        $page = DatabaseController::pullData( 
+            "pages",
+            "Page",
+            array( "pageID", "title", "name", "description" ),
+            array(
+                "pageID" => $_params['pageID']
+            )
+        );
+        if(!$page) System::gotoView("Administration/Pages");
+        $this->setEditPage($page[0]);
+        System::view( "Content", "Administration" );  
+    }
+
+    public function viewNewContentPageForm( $_params )
+    {
+        $page = DatabaseController::pullData( 
+            "pages",
+            "Page",
+            array( "pageID", "title", "name", "description" ),
+            array(
+                "pageID" => $_params['pageID']
+            )
+        );
+        if(!$page) System::gotoView("Administration/Pages");
+        $this->setEditPage($page[0]);
+        System::view( "NewContent", "Administration" ); 
+    }
+
+    public function addNewPageContent( $_params )
+    {
+        
+    }
+
     public function viewNewPageForm( $_params )
     {
         System::view( "NewPage", "Administration" ); 
@@ -79,6 +116,13 @@ class AdministrationController extends Controller
 	public function setWebsiteName($_websiteName)
 	{
 		$this->websiteName = $_websiteName;
+		return $this;
+    }
+
+    public function getEditPage(){ return $this->editPage; }
+	public function setEditPage($_editPage)
+	{
+		$this->editPage = $_editPage;
 		return $this;
 	}
 

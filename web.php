@@ -14,7 +14,9 @@
     Identifier::route("Administration/Pages/New", "AdministrationController", "viewNewPageForm");
     Identifier::post("Administration/Pages/New", "AdministrationController", "addNewPage");
 
-    Identifier::route("Administration/Page/{idPage}", "AdministrationController", "viewPageContent");
+    Identifier::route("Administration/Page/{pageID}", "AdministrationController", "viewPageContent");
+    Identifier::route("Administration/Page/{pageID}/New", "AdministrationController", "viewNewContentPageForm");
+    Identifier::post("Administration/Page/{pageID}/New", "AdministrationController", "addNewPageContent");
 
     Identifier::route("Administration/Settings", "AdministrationController", "viewSettingsList");
 
