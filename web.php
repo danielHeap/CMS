@@ -1,6 +1,6 @@
 <?php 
 
-    Identifier::redirect("", "Page");
+    Identifier::redirect("", "Page/Start");
 
     Identifier::route("Administration", "AdministrationController");
 

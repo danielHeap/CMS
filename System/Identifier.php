@@ -61,7 +61,7 @@ class Identifier
         return false;
     }
 
-    public static function redirect( $_ilusionLink = "%root%", $_realLink )
+    public static function redirect( $_ilusionLink , $_realLink )
     {
         array_push(self::$redirect, array($_ilusionLink => $_realLink));
     }

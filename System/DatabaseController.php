@@ -73,7 +73,7 @@ class DatabaseController extends DatabaseConnetion
             return false;
         } else {
             $rowCount = mysqli_num_rows($result);
-            if($rowCount > 1) {
+            if($rowCount > 0) {
                 $tempArray = [];
                 while($row = $result->fetch_assoc()){
                     $newObject = new $_model();
@@ -84,7 +84,8 @@ class DatabaseController extends DatabaseConnetion
                     array_push($tempArray, $newObject);
                 }
                 return $tempArray;
-            } elseif ( $rowCount == 1 )
+            } 
+            /*elseif ( $rowCount == 1 )
             {
                 $newObject = new $_model();
                 while($row = $result->fetch_assoc()){
@@ -94,7 +95,7 @@ class DatabaseController extends DatabaseConnetion
                     }
                 }
                 return $newObject;
-            }
+            }*/
             else return false;
         }
     }
