@@ -1,6 +1,0 @@
-[MYSQL]
-DB_HOST = localhost
-DB_DATABASE = testowastrona
-DB_USERNAME = root
-DB_PASSWORD = root
-DB_PREFIX = cms_
