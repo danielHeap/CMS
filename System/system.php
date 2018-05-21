@@ -66,57 +66,57 @@ class System
 
     }
 
-    public function view( $_view, $alternativeView = null )
+    public function view( $_view, $_alternativeView = null, $_alternativeTheme = null )
     {
         self::$templateView = array(
             "head" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/head.php") ? ("Views/" . $_view . "/head.php") : ("Templates/head.php"))
                 :
-                (file_exists("Views/" . $_view . "/head.php") ? ("Views/" . $_view . "/head.php") : (file_exists("Views/" . $alternativeView . "/head.php")  ?  ("Views/" . $alternativeView . "/head.php") : ("Templates/head.php")))
+                (file_exists("Views/" . $_view . "/head.php") ? ("Views/" . $_view . "/head.php") : (file_exists("Views/" . $_alternativeView . "/head.php")  ?  ("Views/" . $_alternativeView . "/head.php") : ("Templates/head.php")))
             ),
             "body_start" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/body_start.php") ? ("Views/" . $_view . "/body_start.php") : ("Templates/body_start.php"))
                 :
-                (file_exists("Views/" . $_view . "/body_start.php") ? ("Views/" . $_view . "/body_start.php") : (file_exists("Views/" . $alternativeView . "/body_start.php") ?  ("Views/" . $alternativeView . "/body_start.php") : ("Templates/body_start.php")))
+                (file_exists("Views/" . $_view . "/body_start.php") ? ("Views/" . $_view . "/body_start.php") : (file_exists("Views/" . $_alternativeView . "/body_start.php") ?  ("Views/" . $_alternativeView . "/body_start.php") : ("Templates/body_start.php")))
             ),
             "content_start" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/content_start.php") ? ("Views/" . $_view . "/content_start.php") : ("Templates/content_start.php"))
                 :
-                (file_exists("Views/" . $_view . "/content_start.php") ? ("Views/" . $_view . "/content_start.php") : (file_exists("Views/" . $alternativeView . "/content_start.php") ?  ("Views/" . $alternativeView . "/content_start.php") : ("Templates/content_start.php")))
+                (file_exists("Views/" . $_view . "/content_start.php") ? ("Views/" . $_view . "/content_start.php") : (file_exists("Views/" . $_alternativeView . "/content_start.php") ?  ("Views/" . $_alternativeView . "/content_start.php") : ("Templates/content_start.php")))
             ),
             "content" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/content.php") ? ("Views/" . $_view . "/content.php") : ("Templates/content.php"))
                 :
-                (file_exists("Views/" . $_view . "/content.php") ? ("Views/" . $_view . "/content.php") : (file_exists("Views/" . $alternativeView . "/content.php") ? ("Views/" . $alternativeView . "/content.php") : ("Templates/content.php")))
+                (file_exists("Views/" . $_view . "/content.php") ? ("Views/" . $_view . "/content.php") : (file_exists("Views/" . $_alternativeView . "/content.php") ? ("Views/" . $_alternativeView . "/content.php") : ("Templates/content.php")))
             ),
             "content_end" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/content_end.php") ? ("Views/" . $_view . "/content_end.php") : ("Templates/content_end.php"))
                 :
-                (file_exists("Views/" . $_view . "/content_end.php") ? ("Views/" . $_view . "/content_end.php") : (file_exists("Views/" . $alternativeView . "/content_end.php") ?  ("Views/" . $alternativeView . "/content_end.php") : ("Templates/content_end.php")))
+                (file_exists("Views/" . $_view . "/content_end.php") ? ("Views/" . $_view . "/content_end.php") : (file_exists("Views/" . $_alternativeView . "/content_end.php") ?  ("Views/" . $_alternativeView . "/content_end.php") : ("Templates/content_end.php")))
             ),
             "body_end" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/body_end.php") ? ("Views/" . $_view . "/body_end.php") : ("Templates/body_end.php"))
                 :
-                (file_exists("Views/" . $_view . "/body_end.php") ? ("Views/" . $_view . "/body_end.php") : (file_exists("Views/" . $alternativeView . "/body_end.php") ?  ("Views/" . $alternativeView . "/body_end.php") : ("Templates/body_end.php")))
+                (file_exists("Views/" . $_view . "/body_end.php") ? ("Views/" . $_view . "/body_end.php") : (file_exists("Views/" . $_alternativeView . "/body_end.php") ?  ("Views/" . $_alternativeView . "/body_end.php") : ("Templates/body_end.php")))
             ),
             "footer" => (
-                ($alternativeView == null) 
+                ($_alternativeView == null) 
                 ?
                 (file_exists("Views/" . $_view . "/footer.php") ? ("Views/" . $_view . "/footer.php") : ("Templates/footer.php"))
                 :
-                (file_exists("Views/" . $_view . "/footer.php") ? ("Views/" . $_view . "/footer.php") : (file_exists("Views/" . $alternativeView . "/footer.php") ?  ("Views/" . $alternativeView . "/footer.php") : ("Templates/footer.php")))
+                (file_exists("Views/" . $_view . "/footer.php") ? ("Views/" . $_view . "/footer.php") : (file_exists("Views/" . $_alternativeView . "/footer.php") ?  ("Views/" . $_alternativeView . "/footer.php") : ("Templates/footer.php")))
             )
         );
         require ( self::$templateView["head"] );

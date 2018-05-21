@@ -1,28 +1,67 @@
 
-<h3>Dodaj nową stronę</h3>
-<?php
+<section class="page-content">
+    <h3>Lista stron w serwisie<span class="arrow"><img width="24px" src="<?php echo System::getActualURL() . "/Resources/images/right-arrow.svg"; ?>"></span><span class="lighttext">Dodaj nową stronę</span></h3>
+    <?php
 
-$newForm = new FormCreator("loginForm", array(
-    "method"        => "post",
-));
+    $newForm = new FormCreator("loginForm", array(
+        "method"        => "post",
+        "class"         => "basic-form"
+    ));
+    $newForm->addClass( "first-class", null);
 
-$newForm->addClass( "first-class", array(
-    "title"         => "Podstawowe dane", 
-    "description"   => "Wpisz dane strony w serwisie"
-));
-$newForm->addObject( "title", "first-class", array(
-    "placeholder"   => "Tytuł"
-));
-$newForm->addObject( "name", "first-class", array(
-    "placeholder"   => "Nazwa"
-));
-$newForm->addObject( "description", "first-class", array(
-    "placeholder"   => "Opis"
-));
-$newForm->addButton( "submitButton", "first-class", array(
-    "value" => "Utwórz"
-));
+    $pages = DatabaseController::pullData( 
+        "pages",
+        "Page",
+        array( "pageID", "title" )
+    );
+    $pagesList = [];
+    array_push(
+        $pagesList,
+        array(
+            "name" => "0",
+            "title" => "- - - - -"
+        )
+    );
+    foreach ($pages as $value) {
+        array_push(
+            $pagesList,
+            array(
+                "name" => $value->getPageID(),
+                "title" => $value->getTitle()
+            )
+        );
+    }
+    $newForm->addObject( "parentID", "first-class", array(
+        "title" => "Rodzic",
+        "type"  => "select",
+        "options"  => $pagesList
+    ));
+    $newForm->addObject( "title", "first-class", array(
+        "title" => "Tytuł strony",
+        "type"  => "text",
+        "placeholder"   => "Wpisz tytuł"
+    ));
+    $newForm->addObject( "name", "first-class", array(
+        "title" => "Nazwa w linku",
+        "type"  => "text",
+        "placeholder"   => "Wpisz nazwę widoczną w linku",
+        "comment"   => 'Nie używaj spacji, ani żadnych znaków specjalnych, np. podstrona1.'
+    ));
+    $newForm->addObject( "description", "first-class", array(
+        "title" => "Opis zawartości",
+        "type"   => "textarea",
+        "comment"   => 'Krótkie streszczenie, do 100 znaków.'
+    ));
+    $newForm->addButton( "cancelButton", "first-class", array(
+        "value" => "Anuluj",
+        "class" => "button"
+    ));
+    $newForm->addButton( "submitButton", "first-class", array(
+        "value" => "Utwórz",
+        "class" => "button button-accept"
+    ));
 
-$newForm->displayForm();
+    $newForm->displayForm();
 
-?>
+    ?>
+</section>

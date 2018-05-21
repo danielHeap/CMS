@@ -39,6 +39,7 @@ class FormCreator {
 			'method' => ($formConfig['method'] ? $formConfig['method'] : 'post'),
 			'action' => ($formConfig['action'] ? $formConfig['action'] : ''),
             'enctype' => ($formConfig['enctype'] ? $formConfig['enctype'] : ''),
+            'class' => ($formConfig['class'] ? $formConfig['class'] : ''),
 			'specialKey' => ($formConfig['specialKey'] ? $formConfig['specialKey'] : $this->generateKey())
         );
     }
@@ -161,7 +162,7 @@ class FormCreator {
      */
     public function displayForm()
     {
-        echo '<form method="'.$this->formSets['method'].'" action="'.$this->formSets['action'].'" name="'.$this->formSets['name'].'" id="form-'.$this->formSets['name'].'" enctype="'.$this->formSets['enctype'].'">';
+        echo '<form method="'.$this->formSets['method'].'" action="'.$this->formSets['action'].'" name="'.$this->formSets['name'].'" id="form-'.$this->formSets['name'].'" enctype="'.$this->formSets['enctype'].'" class="'.$this->formSets['class'].'">';
         foreach ($this->formClasses as $keyClass => $class){
             echo '<section class="form-section form-section-'.$keyClass.'">';
             if( $class['title'] ) echo '<h5>'.$class['title'].'</h2>';

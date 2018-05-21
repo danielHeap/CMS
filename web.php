@@ -17,8 +17,15 @@
     Identifier::route("Administration/Page/{pageID}", "AdministrationController", "viewPageContent");
     Identifier::route("Administration/Page/{pageID}/New", "AdministrationController", "viewNewContentPageForm");
     Identifier::post("Administration/Page/{pageID}/New", "AdministrationController", "addNewPageContent");
+    Identifier::route("Administration/Page/{pageID}/DeleteConfirm", "AdministrationController", "viewDeletePageForm");
+    Identifier::route("Administration/Page/{pageID}/Delete", "AdministrationController", "deletePage");
+    Identifier::route("Administration/Page/{pageID}/Modify", "AdministrationController", "viewModifyPageFrom");
+    Identifier::post("Administration/Page/{pageID}/Modify", "AdministrationController", "modifyPage");
 
-    Identifier::route("Administration/Settings", "AdministrationController", "viewSettingsList");
+    Identifier::route("Administration/Settings", "AdministrationController", "viewSettings");
+    Identifier::post("Administration/Settings", "AdministrationController", "setSettings");
+    Identifier::route("Administration/Settings/Users", "AdministrationController", "viewSettingsUsers");
+    Identifier::route("Administration/Settings/Templates", "AdministrationController", "viewSettingsTemplates");
 
     Identifier::route("Page", "PageController");
     Identifier::route("Page/{namePage}", "PageController", "viewPage");

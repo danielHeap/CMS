@@ -6,6 +6,24 @@ class PageController extends Controller
 {
     public $page;
     public $content;
+    public $websiteSettings;
+        
+    public function Start()
+    {
+        $this->websiteSettings = DatabaseController::pullData( 
+            "settings",
+            "Setting",
+            array( "name", "value", "title" ),
+            array(
+                "name" => array(
+                    "!=",
+                    "template"
+                )
+            ),
+            null,
+            true
+        );   
+    }
 
     public function viewPage( $_params )
     {
@@ -53,6 +71,14 @@ class PageController extends Controller
             echo '<ul>';
             echo '<li><a href="'. System::getActualURL() . '/Page/' . $page->getName() . '">' . $page->getTitle() . '</a></li>';
             echo '</ul>';
+        }
+    }
+
+    public function content()
+    {
+        if($this->getContent())
+        foreach ($this->getContent() as $content) {
+            echo "<div>" . $content->getContentHTML() . "</div>";
         }
     }
 

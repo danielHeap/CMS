@@ -1,21 +1,28 @@
-<h3>Lista stron w serwisie</h3>
-<a href="<?php echo System::getActualURL(); ?>/Administration/Pages/New">Dodaj nową</a>
-<div style=" margin-top: 20px; font-weight: 600"><span style="width: 200px;  line-height: 40px; display: inline-block;">NAZWA</span><span style="width: 200px;  line-height: 40px; display: inline-block;">TYTUŁ</span><span style="width: 200px;  line-height: 40px; display: inline-block;">OPIS</span><span style="  line-height: 40px; display: inline-block;">AKCJE</span></div>
-<ul style="margin: 0; padding: 0; list-style: none;">
 <?php
 
-$pages = DatabaseController::pullData( 
-    "pages",
-    "Page",
-    array( "pageID", "title", "name", "description")
-);
-if(!empty($pages))
-    foreach($pages as $page)
-    {
-        echo '<li style="line-height: 30px"><span style="width: 200px; display: inline-block;">' . $page->getName() . '</span><span style="width: 200px;  line-height: 40px; display: inline-block;">' . $page->getTitle() . '</span><span style="width: 200px;  line-height: 40px; display: inline-block;">' . $page->getDescription() . '</span><a href="' . System::getActualURL() . '/Administration/Page/' . $page->getPageID() . '">Wyświetl treść</a> | <a href="' . System::getActualURL() . '/Administration/Page/' . $page->getPageID() . '/New/">Dodaj nową treść</a></li>';
-    }
-else 
-    echo '<span class="info">Lista stron jest pusta</span>';
-
 ?>
-</ul>
+<div id="page-header">
+    <div class="column blue">
+        <a href="<?php echo System::getActualURL(); ?>/Administration/Pages/New"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/pages_new.svg"></span>STWÓRZ NOWĄ</a>
+    </div>
+</div>
+<section class="page-content">
+    <h3>Lista stron w serwisie</h3>
+    <h4><?php echo count($this->getPages()); ?> Wyniki</h4>
+    <div class="table">
+        <div class="row header">
+            <div class="col col-200 text-to-left">Nazwa</div>
+            <div class="col col-6 text-to-left">Rodzic</div>
+            <div class="col col-5 text-to-left">Tytuł</div>
+            <div class="col text-to-left">Opis</div>
+            <div class="col col-4 text-to-right align-right">Akcje</div>
+        </div>
+        <?php
+        if(!empty($this->getPages('0')))
+            $this->viewPagesListTable( $this, '0' );
+        else 
+            echo '<span class="info">Lista stron jest pusta</span>';
+
+        ?>
+    </div>
+</section>

@@ -37,7 +37,7 @@ class DatabaseController extends DatabaseConnetion
         return true;
     }
 
-    public static function pullData( $_tableName, $_model, $_columnsName = null, $_conditions = null, $_limit = null )
+    public static function pullData( $_tableName, $_model, $_columnsName = null, $_conditions = null, $_limit = null, $_nameKey = null )
     {
         $syntax = "SELECT ";
         if($_columnsName) {
@@ -57,8 +57,13 @@ class DatabaseController extends DatabaseConnetion
             $index = 1; 
             $conditionsCount = count($_conditions);
             foreach ($_conditions as $columnName => $value) {
-                $syntax .= $columnName . " = '" . $value . "'";
-                if($index != $conditionsCount) $syntax .= "', ";  
+                if(is_array($value))
+                {
+                    $syntax .= $columnName . $value[0] . "'" . $value[1] . "'";
+                } else {
+                    $syntax .= $columnName . " = '" . $value . "'";
+                } 
+                if($index != $conditionsCount) $syntax .= "', "; 
                 $index ++;
             }
         }
@@ -81,24 +86,98 @@ class DatabaseController extends DatabaseConnetion
                         $functionName = "set" . ucwords($columnName);
                         $newObject->$functionName($value);
                     }
-                    array_push($tempArray, $newObject);
+                    if($_nameKey == null) array_push($tempArray, $newObject);
+                    else $tempArray[$newObject->getName()] = $newObject;
                 }
                 return $tempArray;
             } 
-            /*elseif ( $rowCount == 1 )
-            {
-                $newObject = new $_model();
+            else return false;
+        }
+    }
+
+    /**
+     * TODO: Spróbować zintegrować INNER JOINY i CLASSES
+     */
+    public static function pullJoinData( $_tableName, $_model, $_columnsName = null, $_joins = null, $_conditions = null, $_limit = null )
+    {
+        $syntax = "SELECT ";
+        if($_columnsName) {
+            $index = 1; 
+            $columnsCount = count($_columnsName);
+            foreach ($_columnsName as $variable) {
+                $syntax .= $variable[0] . "." . $variable[1];
+                if($index != $columnsCount) $syntax .= ", "; 
+                $index ++;
+            }
+        } else {
+            $syntax .= "*";
+        }
+        $syntax .= " FROM " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName;
+        if($_joins) {
+            $index = 1;
+            foreach ($_joins as $value) {
+                $syntax .= " " . $value['joinType'] . " JOIN ";
+                $syntax .= $value['tableName'] . " AS " . $index;
+                $index++;
+            }
+        }
+        if($_conditions) {
+            $syntax .= " WHERE ";
+            $index = 1; 
+            $conditionsCount = count($_conditions);
+            foreach ($_conditions as $columnName => $value) {
+                $syntax .= $columnName . " = '" . $value . "'";
+                if($index != $conditionsCount) $syntax .= "', ";  
+                $index ++;
+            }
+        }
+        if($_limit) {
+            $syntax .= " LIMIT ";
+            if($_limit['count']) $syntax .= $_limit['count'];
+            if($_limit['from']) $syntax .= " OFFSET " . $_limit['from'];
+        }
+        $syntax .= ";";
+        $result = self::$databaseConnection->query($syntax);
+        echo $syntax;
+        echo $syntax;
+        if(!$result){
+            return false;
+        } else {
+            $rowCount = mysqli_num_rows($result);
+            if($rowCount > 0) {
+                $tempArray = [];
                 while($row = $result->fetch_assoc()){
+                    $newObject = new $_model();
                     foreach ($row as $columnName => $value) {
                         $functionName = "set" . ucwords($columnName);
                         $newObject->$functionName($value);
                     }
+                    array_push($tempArray, $newObject);
                 }
-                return $newObject;
-            }*/
+                return $tempArray;
+            } 
             else return false;
         }
     }
+
+    public static function deleteData( $_tableName, $_conditions )
+    {
+        $syntax = "DELETE FROM " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName;
+        $syntax .= " WHERE ";
+        $index = 1; 
+        $conditionsCount = count($_conditions);
+        foreach ($_conditions as $columnName => $value) {
+            $syntax .= $columnName . " = '" . $value . "'";
+            if($index != $conditionsCount) $syntax .= "', ";  
+            $index ++;
+        }
+        $result = self::$databaseConnection->query($syntax);
+        if(!$result) 
+            return false;
+        return true;
+    }
+
+
 
     /**
      * Tables methodes
@@ -121,7 +200,7 @@ class DatabaseController extends DatabaseConnetion
             $queryCreateTable .= ", ";
             $index++;
         } 
-        $queryCreateTable .= "PRIMARY KEY (" . $modelKeys["PRIMARY"] . ") ";
+        if($modelKeys["PRIMARY"] != null) $queryCreateTable .= "PRIMARY KEY (" . $modelKeys["PRIMARY"] . ") ";
         if(is_array($modelKeys["FOREIGN"]))
         {
             foreach ($modelKeys["FOREIGN"] as $variable => $tableKey) {

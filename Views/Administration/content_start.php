@@ -23,11 +23,60 @@
                     <li <?php if(System::getView() == "Administration") echo "class=active" ?>>
                         <a href="<?php echo System::getActualURL(); ?>/Administration/" class="menu-link"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/dashboard.svg" /></span><span class="title">Kokpit</span></a>
                     </li>
-                    <li <?php if(System::getView() == "Administration/Pages") echo "class=active" ?>>
+                    <li <?php 
+                    if(
+                        System::getView() == "Administration/Pages" || 
+                        System::getView() == "Administration/Pages/New" ||
+                        is_array($this->editPage) && (
+                            System::getView() == "Administration/Page/" . $this->editPage[0]->getPageID() . "/DeleteConfirm" ||
+                            System::getView() == "Administration/Page/" . $this->editPage[0]->getPageID() . "/Modify"
+                        )
+                    ) 
+                        echo "class=active" ?>
+                    >
                         <a href="<?php echo System::getActualURL(); ?>/Administration/Pages/" class="menu-link"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/pages.svg" /></span><span class="title">Strony</span></a>
+                       
+                        <?php 
+                        if(
+                            System::getView() == "Administration/Pages" || 
+                            System::getView() == "Administration/Pages/New" ||
+                            is_array($this->editPage) && (
+                                System::getView() == "Administration/Page/" . $this->editPage[0]->getPageID() . "/DeleteConfirm" ||
+                                System::getView() == "Administration/Page/" . $this->editPage[0]->getPageID() . "/Modify"
+                            )
+                        ) {
+                            ?>
+                            <ul>
+                                <li <?php if(System::getView() == "Administration/Pages") echo "class='active'" ?>><a href="<?php echo System::getActualURL(); ?>/Administration/Pages/" <?php if(System::getView() == "Administration/Pages") echo "class='link-active'" ?>>Lista stron</a></li>
+                                <li <?php if(System::getView() == "Administration/Pages/New") echo "class='active'" ?>><a href="<?php echo System::getActualURL(); ?>/Administration/Pages/New/" <?php if(System::getView() == "Administration/Pages/New") echo "class='link-active'" ?>>Dodaj nową stronę</a></li>
+                                <li <?php if(System::getView() == "Administration/Pages/Content/New") echo "class='active'" ?>><a href="<?php echo System::getActualURL(); ?>/Administration/Pages/New/" <?php if(System::getView() == "Administration/Pages/New") echo "class='link-active'" ?>>Dodaj nową treść</a></li>
+                            </ul>
+                            <?php
+                        }
+                        ?>
                     </li>
-                    <li <?php if(System::getView() == "Administration/Settings") echo "class=active" ?>>
+                    <li <?php 
+                        if(
+                            System::getView() == "Administration/Settings" ||
+                            System::getView() == "Administration/Settings/Users" ||
+                            System::getView() == "Administration/Settings/Templates"
+                        ) echo "class=active" ?>>
                         <a href="<?php echo System::getActualURL(); ?>/Administration/Settings/" class="menu-link"><span class="icon"><img src="<?php echo System::getActualURL(); ?>/Resources/images/settings.svg" /></span><span class="title">Ustawienia</span></a>
+                        <?php 
+                        if(
+                            System::getView() == "Administration/Settings" ||
+                            System::getView() == "Administration/Settings/Users" ||
+                            System::getView() == "Administration/Settings/Templates"
+                        ) {
+                            ?>
+                            <ul>
+                                <li <?php if(System::getView() == "Administration/Settings") echo "class='active'" ?>><a href="<?php echo System::getActualURL(); ?>/Administration/Settings/" <?php if(System::getView() == "Administration/Settings") echo "class='link-active'" ?>>Podstawowe ustawienia</a></li>
+                                <li <?php if(System::getView() == "Administration/Settings/Users") echo "class='active'" ?>><a href="<?php echo System::getActualURL(); ?>/Administration/Settings/Users/" <?php if(System::getView() == "Administration/Settings/Users") echo "class='link-active'" ?>>Użytkownicy</a></li>
+                                <li <?php if(System::getView() == "Administration/Settings/Templates") echo "class='active'" ?>><a href="<?php echo System::getActualURL(); ?>/Administration/Settings/Templates/" <?php if(System::getView() == "Administration/Settings/Templates") echo "class='link-active'" ?>>Szablony graficzne</a></li>
+                            </ul>
+                            <?php
+                        }
+                        ?>
                     </li>
                 </ul>
             </nav>
