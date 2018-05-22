@@ -132,13 +132,24 @@ class AdministrationController extends Controller
             )
         );
         if(!$page) System::gotoView("Administration/Pages");
-        $this->editPage = $page;
+        $this->editPage = $page[0];
         System::view( "ModifyPage", "Administration" ); 
     }
 
     public function modifyPage( $_params )
     {
-        System::view( "ModifyPage", "Administration" ); 
+        if(DatabaseController::modifyData( 
+            "pages",  
+            array( 
+                "title" => $_params['title'],
+                "name" => $_params['name'] ,
+                "description" => $_params['description']
+            ),  
+            array( "pageID" => $_params['pageID'] )
+        ))
+        {
+            System::gotoView("Administration/Pages");
+        }
     }
 
     public function viewDeletePageForm( $_params )
@@ -225,6 +236,14 @@ class AdministrationController extends Controller
 
     public function setSettings( $_params )
     {
+        if(
+            DatabaseController::modifyData( "settings",  array( "value" => $_params['title'] ),  array( "name" => "title" )) &&
+            DatabaseController::modifyData( "settings",  array( "value" => $_params['description'] ),  array( "name" => "description" )) &&
+            DatabaseController::modifyData( "settings",  array( "value" => $_params['keywords'] ),  array( "name" => "keywords" ))
+        )
+        {
+            System::gotoView("Administration/Settings");
+        }
     }
 
     public function viewSettingsUsers( )

@@ -22,15 +22,16 @@
             "title" => "- - - - -"
         )
     );
-    foreach ($pages as $value) {
-        array_push(
-            $pagesList,
-            array(
-                "name" => $value->getPageID(),
-                "title" => $value->getTitle()
-            )
-        );
-    }
+    if(count($pages) > 0)
+        foreach ($pages as $value) {
+            array_push(
+                $pagesList,
+                array(
+                    "name" => $value->getPageID(),
+                    "title" => $value->getTitle()
+                )
+            );
+        }
     $newForm->addObject( "parentID", "first-class", array(
         "title" => "Rodzic",
         "type"  => "select",
@@ -51,10 +52,6 @@
         "title" => "Opis zawartości",
         "type"   => "textarea",
         "comment"   => 'Krótkie streszczenie, do 100 znaków.'
-    ));
-    $newForm->addButton( "cancelButton", "first-class", array(
-        "value" => "Anuluj",
-        "class" => "button"
     ));
     $newForm->addButton( "submitButton", "first-class", array(
         "value" => "Utwórz",

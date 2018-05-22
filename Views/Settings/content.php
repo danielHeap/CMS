@@ -17,17 +17,18 @@
             "name" => array(
                 "!=",
                 "template"
-            )
+            ) 
         )
     );
 
-    foreach ($basicSettings as $setting) {
-        $newForm->addObject( $setting->getName(), "basic", array(
-            "title" => $setting->getTitle(),
-            "value" => $setting->getValue(),
-            "type"  => "text"
-        ));
-    }
+    if(count($basicSettings) > 0)
+        foreach ($basicSettings as $setting) {
+            $newForm->addObject( $setting->getName(), "basic", array(
+                "title" => $setting->getTitle(),
+                "value" => $setting->getValue(),
+                "type"  => "text"
+            ));
+        }
     
     $newForm->addButton( "submitButton", "basic", array(
         "value" => "Modyfikuj ustawienia",

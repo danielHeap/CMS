@@ -11,7 +11,7 @@
         </span>
         <ul class="logged-user-menu">
             <li><a href="<?php echo System::getActualURL(); ?>/Administration/Settings/">Ustawienia</a></li>
-            <li><a href="<?php echo System::getActualURL(); ?>">Otwórz w nowym oknie</a></li>
+            <li><a href="<?php echo System::getActualURL(); ?>/Page/<?php echo $this->websiteSettings['startPage']->getValue(); ?>" target="_blank">Otwórz w nowym oknie</a></li>
             <li><a href="<?php echo System::getActualURL(); ?>/Administration/Logout/">Wyloguj się</a></li>
         </ul>
     </div>

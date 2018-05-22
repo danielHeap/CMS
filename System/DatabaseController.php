@@ -63,7 +63,7 @@ class DatabaseController extends DatabaseConnetion
                 } else {
                     $syntax .= $columnName . " = '" . $value . "'";
                 } 
-                if($index != $conditionsCount) $syntax .= "', "; 
+                if($index != $conditionsCount) $syntax .= ", "; 
                 $index ++;
             }
         }
@@ -127,7 +127,7 @@ class DatabaseController extends DatabaseConnetion
             $conditionsCount = count($_conditions);
             foreach ($_conditions as $columnName => $value) {
                 $syntax .= $columnName . " = '" . $value . "'";
-                if($index != $conditionsCount) $syntax .= "', ";  
+                if($index != $conditionsCount) $syntax .= ", ";  
                 $index ++;
             }
         }
@@ -138,8 +138,6 @@ class DatabaseController extends DatabaseConnetion
         }
         $syntax .= ";";
         $result = self::$databaseConnection->query($syntax);
-        echo $syntax;
-        echo $syntax;
         if(!$result){
             return false;
         } else {
@@ -168,15 +166,48 @@ class DatabaseController extends DatabaseConnetion
         $conditionsCount = count($_conditions);
         foreach ($_conditions as $columnName => $value) {
             $syntax .= $columnName . " = '" . $value . "'";
-            if($index != $conditionsCount) $syntax .= "', ";  
+            if($index != $conditionsCount) $syntax .= ", ";  
             $index ++;
         }
+        $syntax .= ";";
         $result = self::$databaseConnection->query($syntax);
         if(!$result) 
             return false;
         return true;
     }
 
+    public static function modifyData( $_tableName, $_sets, $_conditions = null )
+    {
+        /**
+         * UPDATE Customers
+         * SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
+         * WHERE CustomerID = 1;
+         */
+
+        $syntax = "UPDATE " . self::$databaseConfig['MYSQL']['DB_PREFIX'].$_tableName;
+        $syntax .= " SET ";
+        $index = 1; 
+        $setsCount = count($_sets);
+        foreach ($_sets as $columnName => $value) {
+            $syntax .= $columnName . " = '" . $value . "'";
+            if($index != $setsCount) $syntax .= ", ";  
+            $index ++;
+        }
+        $syntax .= " WHERE ";
+        $index = 1; 
+        $conditionsCount = count($_conditions);
+        foreach ($_conditions as $columnName => $value) {
+            $syntax .= $columnName . " = '" . $value . "'";
+            if($index != $conditionsCount) $syntax .= ", ";  
+            $index ++;
+        }
+        $syntax .= ";";
+        echo $syntax;
+        $result = self::$databaseConnection->query($syntax);
+        if(!$result) 
+            return false;
+        return true;
+    }
 
 
     /**
