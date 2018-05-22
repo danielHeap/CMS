@@ -59,17 +59,25 @@ class PageController extends Controller
         $this->setContent($content);
     }
 
-    public function viewMenu()
+    public function viewMenu( $_parentID )
     {
         $pagesList = DatabaseController::pullData( 
             "pages",
             "Page",
-            array( "title", "name" )
+            array( "title", "name", "pageID" ),
+            array(
+                "parentID" => $_parentID
+            )
         );
-        foreach($pagesList as $page)
-        {
+        if($pagesList != null){
             echo '<ul>';
-            echo '<li><a href="'. System::getActualURL() . '/Page/' . $page->getName() . '">' . $page->getTitle() . '</a></li>';
+            foreach($pagesList as $page)
+            {
+                echo '<li>';
+                echo '<a href="'. System::getActualURL() . '/Page/' . $page->getName() . '">' . $page->getTitle() . '</a>';
+                $this->viewMenu($page->getPageID());
+                echo '</li>';
+            }
             echo '</ul>';
         }
     }

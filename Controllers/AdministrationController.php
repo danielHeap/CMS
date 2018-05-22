@@ -239,7 +239,8 @@ class AdministrationController extends Controller
         if(
             DatabaseController::modifyData( "settings",  array( "value" => $_params['title'] ),  array( "name" => "title" )) &&
             DatabaseController::modifyData( "settings",  array( "value" => $_params['description'] ),  array( "name" => "description" )) &&
-            DatabaseController::modifyData( "settings",  array( "value" => $_params['keywords'] ),  array( "name" => "keywords" ))
+            DatabaseController::modifyData( "settings",  array( "value" => $_params['keywords'] ),  array( "name" => "keywords" )) &&
+            DatabaseController::modifyData( "settings",  array( "value" => $_params['startPage'] ),  array( "name" => "startPage" ))
         )
         {
             System::gotoView("Administration/Settings");

@@ -1,0 +1,356 @@
+html
+{
+	margin: 0;
+	padding: 0;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+	background-color: #90a5c2;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1200px;
+	display: flex;
+	align-items: stretch;
+	flex-flow: row wrap;
+	font-family: Arial;
+}
+
+a {
+	text-decoration: none;
+}
+
+.flex-column {
+	display: flex;
+	align-items: stretch;
+}
+
+
+.contact-col-left, .contact-col-right {
+	width: 50%;  
+	box-sizing: border-box; 
+	display: block;
+	padding-right: 30px; 
+}
+
+.form .input {
+	border: 1px solid #CCD6EB;
+	font-size: 14px;
+	color: #000;
+	line-height: 24px;
+	padding: 4px 8px;
+	width: 100%;
+	display: block;
+	border-radius: 2px;
+	box-sizing: border-box;
+	margin-bottom: 5px;
+}
+
+.form .button {
+	border: 1px solid rgba(0, 0, 0, 0.37);
+	font-size: 12px;
+	color: #fff;
+	background-color: #c6355f;
+	line-height: 24px;
+	padding: 5px 8px 3px;
+	display: inline-block;
+	border-radius: 2px;
+	box-sizing: border-box;
+	margin-bottom: 5px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: Arial;
+}
+.form .button:hover {
+	background-color: #942747;
+	cursor: pointer;
+}
+.form .mail-info {
+	display: none;
+	padding: 10px 0;
+	font-size: 12px;
+	color: silver;
+}
+
+.map {
+	border-radius: 2px;
+	border: 1px solid #CCD6EB;
+	width: 50%; 
+	height: 400px; 
+	background: gray;
+}
+
+#zielony
+{
+	background-color: #993955;
+	height: 180px;
+	width: 100%;
+}
+#zielony #logo {
+    height: 140px;
+    line-height: 140px;
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+}
+#zielony #logo a {
+	color: #fff;
+}
+#zielony #top-menu ul {
+	margin: 0;
+	padding: 0;
+	display: flex;
+    align-items: center;
+    list-style: none;
+
+	border-top: 1px solid #7A2E44;
+}
+#zielony #top-menu ul li {
+	display: block;
+    border-right: 1px solid #7A2E44;
+    position: relative;
+    white-space: nowrap;
+    height: 39px;
+}
+#zielony #top-menu ul li:last-child {
+	border-right: 0;
+}
+#zielony #top-menu ul li a {
+	height: 40px;
+	display: block;
+	color: #fff;
+	font-size: 16px;
+    text-align: center;
+    padding: 0px 20px;
+	line-height: 40px;
+	transition: all 0.3s;
+}
+#zielony #top-menu ul li ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    background-color: #993955;
+    display: none;
+}
+#zielony #top-menu ul li:hover ul { display: block; }
+#zielony #top-menu ul li a:hover, #zielony #top-menu ul li a.active {
+	background: rgba(0,0,0,.1);
+}
+
+#zolty
+{
+	background-color: #ccd6eb;
+	width: 240px;
+	min-height: 400px;
+	padding: 20px;
+	box-sizing: border-box;
+	border-radius: 0px 0px 0px 3px;
+}
+#zolty #main-menu ul {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+#zolty #main-menu ul li {
+	display: block;
+	border-bottom: 1px solid rgba(0,0,0,.2);
+}
+#zolty #main-menu ul li:last-child {
+	border-bottom: 0;
+}
+#zolty #main-menu ul li a {
+	height: 40px;
+	display: block;
+	color: #000;
+	font-size: 16px;
+	text-align: left;
+	padding: 0px 10px;
+	line-height: 40px;
+	transition: all 0.3s;
+}
+#zolty #main-menu ul li a:hover {
+	padding-left: 20px;
+}
+#zolty #main-menu ul li a.active {
+	color: #993955;
+	padding-left: 20px;
+}
+
+#pomaranczowy
+{
+	background-color: #fafafa;
+	width: calc(100% - 240px);
+	min-height: 400px;
+	border-radius: 0px 0px 3px 0px;
+}
+#pomaranczowy #content {
+	padding: 20px;
+}
+
+#pomaranczowy #content h2 {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 20px;
+}
+#pomaranczowy #content p {
+	line-height: 24px;
+	font-size: 14px;
+}
+
+#pomaranczowy #content .section-cart {
+	display: none;
+}
+#pomaranczowy #content .section-cart:first-child {
+	display: block;
+}
+
+#footer {
+	margin-top: 10px;
+	font-size: 10px;
+	text-transform: uppercase;
+	color: rgba(255,255,255,1);
+}
+#footer .heart {
+	margin: 0px 5px;
+	color: #993955;
+}
+
+///////////////
+// Treści
+//////////////
+
+
+				.text-color p:first-child{
+					color:red;
+				}
+				.text-color p:nth-child(2){
+					color:green;
+				}
+				.text-color p:nth-child(4){
+					color:yellow;
+				}
+				.text-align p:first-child{
+					text-align: left;
+				}
+				.text-align p:nth-child(2){
+					text-align: right;
+				}
+				.text-align p:nth-child(3){
+					text-align: center;
+				}
+				.text-align p:nth-child(4){
+					text-align: justify;
+				}
+
+	#bg-col{
+		background-color: lightblue;
+	}
+	#bg-col2{
+		background-color: rgb(255,255,0);
+	}
+	#bg-col3{
+						background-color: rgba(255,0,0,0.5);
+	}
+	.wrapper-img .bg-image:first-child{
+		background-image: url("paper.jpg");
+		background-repeat: no-repeat;
+		height: 240px;
+	}
+	.wrapper-img .bg-image:nth-child(2){
+		background-image: url("paper.jpg");
+		background-repeat: repeat;
+		height: 240px;
+	}
+	.wrapper-img .bg-image:nth-child(3){
+		background-image: url("paper.jpg");
+		background-repeat: no-repeat;		
+		background-position: right top;
+		height: 240px;
+	}
+
+.list-enum > ul:nth-child(2){
+		list-style: lower-alpha;
+	}
+	.list-enum ul:nth-child(4){
+		list-style-type: upper-roman;
+	}	
+	.list-enum ul:nth-child(6){
+		list-style-type: arabic;
+	}
+	.list-nonenum ul:nth-child(2){
+		list-style-type: square;
+	}
+	.list-nonenum ul:nth-child(4){
+		list-style-type: circle;
+	}
+
+.fonts{
+	margin-left: 5%;
+}
+.fonts > div {
+	padding-left: 3%;
+}
+
+.bolding{
+	font-weight: bold;
+}
+.italic{
+	font-style: italic;
+}
+.oblique{
+	font-style: oblique;
+}
+#roundedCorners > div:nth-child(2){
+	border-radius: 25px;
+    background: #73AD21;
+    padding: 20px; 
+    width: 80%;
+    height: 150px;
+}
+#roundedCorners > div:nth-child(3){
+	border-radius: 15px 50px 30px 5px;
+    border: 2px solid #73AD21;
+    padding: 20px; 
+    width: 80%;
+    height: 150px; 
+}	
+#roundedCorners > div:nth-child(4){
+	border-radius: 15px 50px;
+    background: url(paper.jpg);
+    background-position: left top;
+    background-repeat: repeat;
+    padding: 20px; 
+    width: 80%;
+    height: 150px; 
+}
+#section-clip > div:nth-child(2){
+	border: 2ex dashed black;
+    padding: 15px;
+    background: #99ff55;
+    background-clip: border-box; 
+	margin-bottom: 5ex;
+}
+#section-clip > div:nth-child(3){
+	border: 2ex dashed black;
+    padding: 15px;
+    background: #77ab44;
+    background-clip: padding-box;
+	margin-bottom: 5ex;
+}	
+#section-clip > div:nth-child(4){
+    border: 2ex dashed black;
+    padding: 15px;
+    background: #8835d5;
+    background-clip: content-box;
+	margin-bottom: 5ex;
+}
